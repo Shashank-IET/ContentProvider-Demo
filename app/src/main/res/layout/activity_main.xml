@@ -29,6 +29,7 @@
                     android:background="@color/colorPrimary"
                     android:gravity="end"
                     android:padding="6dp"
+                    android:id="@+id/t1_header"
                     android:text="TABLE T1"
                     android:textColor="#fff"
                     android:textSize="16sp"

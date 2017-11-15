@@ -1,10 +1,10 @@
 package com.cocrux.m.pocketsql;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,10 +13,13 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cocrux.m.pocketsql.models.T1Model;
+import com.cocrux.m.pocketsql.models.T1DataActivity;
+
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -55,6 +58,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.t1_viewall).setOnClickListener(this);
         findViewById(R.id.t2_viewall).setOnClickListener(this);
+
+        findViewById(R.id.t1_header).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i  = new Intent(MainActivity.this, T1DataActivity.class);
+                Cursor cs = getContentResolver().query(PSqlContentProvider.CONTENT_URI_1,
+                        new String[]{PSqlSqliteHelper.COL_ID, PSqlSqliteHelper.T1_COL_NAME, PSqlSqliteHelper.T1_COL_ROLL, PSqlSqliteHelper.T1_COL_AGGREGATE},
+                        null,
+                        null,
+                        PSqlSqliteHelper.T1_COL_ROLL + " asc");
+                ArrayList<T1Model> data = new ArrayList<>();
+                while (cs.moveToNext()){
+                    T1Model obj = new T1Model();
+                    obj.setName(cs.getString(cs.getColumnIndex(PSqlSqliteHelper.T1_COL_NAME)));
+                    obj.setAggregate(cs.getString(cs.getColumnIndex(PSqlSqliteHelper.T1_COL_AGGREGATE)));
+                    obj.setRoll(cs.getInt(cs.getColumnIndex(PSqlSqliteHelper.T1_COL_ROLL)));
+                    data.add(obj);
+                }
+                i.putParcelableArrayListExtra("data", data);
+                startActivity(i);
+            }
+        });
     }
 
     @Override

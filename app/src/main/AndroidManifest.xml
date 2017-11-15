@@ -12,14 +12,18 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
-            android:name="com.cocrux.m.pocketsql.PSqlContentProvider"
+            android:name=".PSqlContentProvider"
             android:authorities="com.cocrux.m.pocketsql"
             android:exported="true"
             android:multiprocess="true" />
+
+        <activity android:name=".models.T1DataActivity"></activity>
     </application>
 
 </manifest>
