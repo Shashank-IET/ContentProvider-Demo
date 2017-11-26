@@ -1,4 +1,4 @@
-# PocketSQL A Android Content Provider/Content Resolver Implementation
+# ContentProvider-Demo A Android Content Provider/Content Resolver Implementation
 A basic level implementation of Android Content Providers, using and understanding URIs & Authorities
 
 # Also Read For better understanding
